@@ -7,7 +7,7 @@ name: Bundle Deployment for databricks_ci_cd Staging
 on:
   push:
     branches:
-      - 'main'
+      - 'master'
   workflow_dispatch:
 
 defaults:
