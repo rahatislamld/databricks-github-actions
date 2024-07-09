@@ -7,7 +7,7 @@ name: Bundle Deployment for databricks_ci_cd Prod
 on:
   push:
     branches:
-      - 'release'
+      - 'master'
   workflow_dispatch:
 
 defaults:
@@ -32,3 +32,11 @@ jobs:
         id: deploy
         run: |
           databricks bundle deploy -t prod
+      - name: Run Feature Engineering Workflow for Test Deployment Target in Production Workspace
+        id: feature_engineering
+        run: |
+          databricks bundle run write_feature_table_job -t prod
+      - name: Run Training Workflow for Test Deployment Target in Production Workspace
+        id: training
+        run: |
+          databricks bundle run model_training_job -t prod 
