@@ -1,6 +1,3 @@
-# This GitHub workflow validates Bundle config (ML resource config and more)
-# defined under databricks_ci_cd/resources/*
-# and databricks_ci_cd/databricks.yml, when PRs are merged into the main branch
 name: Bundle validation for databricks_ci_cd
 
 on:
@@ -50,12 +47,17 @@ jobs:
 
             </details>`
 
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            })
+            // Ensure context.issue.number is valid before posting comment
+            if (context.issue && context.issue.number) {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: output
+              });
+            } else {
+              console.error('Issue number not found in context.');
+            }
 
   prod:
     concurrency: databricks_ci_cd-prod-bundle-job
@@ -89,9 +91,14 @@ jobs:
 
             </details>`
 
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            })
+            // Ensure context.issue.number is valid before posting comment
+            if (context.issue && context.issue.number) {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: output
+              });
+            } else {
+              console.error('Issue number not found in context.');
+            }
