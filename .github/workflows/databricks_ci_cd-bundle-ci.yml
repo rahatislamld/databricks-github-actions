@@ -33,6 +33,7 @@ jobs:
         run: |
           databricks bundle validate -t staging > ../validate_output.txt
       - name: Create Comment with Bundle Configuration
+        if: github.event.pull_request
         uses: actions/github-script@v6
         id: comment
         with:
@@ -71,6 +72,7 @@ jobs:
         run: |
           databricks bundle validate -t prod > ../validate_output.txt
       - name: Create Comment with Bundle Configuration
+        if: github.event.pull_request
         uses: actions/github-script@v6
         id: comment
         with:
