@@ -32,7 +32,7 @@ jobs:
         id: deploy
         run: |
           databricks bundle deploy -t staging
-     - name: Run Feature Engineering Workflow for Test Deployment Target in Staging Workspace
+      - name: Run Feature Engineering Workflow for Test Deployment Target in Staging Workspace
         id: feature_engineering
         run: |
           databricks bundle run write_feature_table_job -t staging
